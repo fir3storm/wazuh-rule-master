@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Wazuh Rule Generator
+Created by Dr. Abhirup Guha
+"""
 import re
 import argparse
 import logging
