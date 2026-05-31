@@ -25,12 +25,43 @@ class WazuhRuleGenerator:
         'command/windows': ['hostname', 'user'],
         'command/bash': ['hostname', 'user'],
         'registry': ['path', 'user'],
+        'network': ['remote_addr', 'destination', 'protocol', 'category'],
+        'database': ['connection', 'user', 'db_name', 'operation'],
+        'email': ['sender', 'receiver', 'subject', 'status'],
+        'dns': ['query', 'response', 'status'],
+        'proxy': ['url', 'method', 'status', 'user'],
+        'antivirus': ['file', 'status', 'detection'],
+        'endpoint': ['process', 'path', 'command', 'user'],
+        'authentication': ['username', 'method', 'status', 'timestamp'],
+        'firewall': ['source', 'destination', 'port', 'action'],
+        'vpn': ['client', 'server', 'protocol', 'status'],
+        'ids': ['signature', 'severity', 'category', 'source'],
+        'iocs': ['malware', 'hash', 'behavior', 'threat'],
+        'compliance': ['control', 'standard', 'status', 'result'],
+        'siem_events': ['event_type', 'severity', 'category', 'source'],
+        'threat_intel': ['indicator', 'source', 'confidence', 'action'],
+        'user_activity': ['user', 'action', 'resource', 'time'],
+        'process_monitoring': ['pid', 'name', 'parent', 'user'],
+        'logon': ['type', 'status', 'method', 'location'],
+        'file_ops': ['action', 'path', 'user', 'time'],
+        'registry_ops': ['action', 'key', 'user', 'time'],
+        'scheduled_tasks': ['task_name', 'status', 'schedule', 'user'],
+        'service_monitoring': ['service', 'status', 'start_time', 'user'],
     }
     RULE_ID_OFFSET = 10001
     CATEGORY_PREFIXES = {
         'syslog': 'syslog', 'audit': 'audit', 'bash': 'command/bash',
         'powershell': 'command/powershell', 'file_integrity': 'file_integrity',
         'registry': 'registry', 'scheduled_scan': 'scheduled_scan',
+        'network': 'network', 'database': 'database', 'email': 'email',
+        'dns': 'dns', 'proxy': 'proxy', 'antivirus': 'antivirus',
+        'endpoint': 'endpoint', 'authentication': 'authentication',
+        'firewall': 'firewall', 'vpn': 'vpn', 'ids': 'ids',
+        'iocs': 'iocs', 'compliance': 'compliance', 'siem_events': 'siem_events',
+        'threat_intel': 'threat_intel', 'user_activity': 'user_activity',
+        'process_monitoring': 'process_monitoring', 'logon': 'logon',
+        'file_ops': 'file_ops', 'registry_ops': 'registry_ops',
+        'scheduled_tasks': 'scheduled_tasks', 'service_monitoring': 'service_monitoring',
     }
     DEFAULT_LEVEL = '3'
     DATE_FMT = '%Y-%m-%d'
@@ -98,6 +129,21 @@ class WazuhRuleGenerator:
         if self.batch_mode:
             self.batch_rules.append(config)
         self._process_rule_config(config)
+    
+    def generate_all_quick_rules(self, output_file=None):
+        """Generate rules for all supported categories"""
+        rules = []
+        for i, (category, prefix) in enumerate(self.CATEGORY_PREFIXES.items()):
+            fields = self.FIELD_DEFINITIONS.get(category, ['category=' + category])
+            rules.append({
+                'category': category,
+                'title': category.replace('_', ' ').title(),
+                'fields': ' '.join(fields),
+                'description': '#' + category.replace('_', ' ') + ' detection',
+                'level': '1' if category not in ['compliance', 'siem_events'] else '2',
+                'id_offset': i + 10001
+            })
+        return rules
 
     def _process_rule_config(self, config, immediate=True):
         rule = self.generate_rule(**config)

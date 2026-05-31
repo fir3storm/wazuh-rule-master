@@ -1,0 +1,176 @@
+<rule id="10010">
+<title>Network intrusion</title>
+<level>1</level>
+<if>remote_addr=* suspicious destination=* category=network </if>
+<description># Suspicious network activity</description>
+<date>2026-05-31</date>
+<rule_name>Network intrusion</rule_name>
+</rule>
+<rule id="10011">
+<title>SQL injection</title>
+<level>1</level>
+<if>connection=* user=* operation=SELECT category=database </if>
+<description># Potential SQL injection attempt</description>
+<date>2026-05-31</date>
+<rule_name>SQL injection</rule_name>
+</rule>
+<rule id="10012">
+<title>Phishing attempt</title>
+<level>1</level>
+<if>sender=* subject=* status=blocked category=email </if>
+<description># Phishing email detected</description>
+<date>2026-05-31</date>
+<rule_name>Phishing attempt</rule_name>
+</rule>
+<rule id="10013">
+<title>DNS tunneling</title>
+<level>1</level>
+<if>query=* response=* category=dns </if>
+<description># DNS tunneling suspicion</description>
+<date>2026-05-31</date>
+<rule_name>DNS tunneling</rule_name>
+</rule>
+<rule id="10014">
+<title>Proxy abuse</title>
+<level>1</level>
+<if>url=* method=* status=error category=proxy </if>
+<description># Proxy policy violation</description>
+<date>2026-05-31</date>
+<rule_name>Proxy abuse</rule_name>
+</rule>
+<rule id="10020">
+<title>Malware detected</title>
+<level>1</level>
+<if>file=* status=infected category=antivirus </if>
+<description># Antivirus malware detection</description>
+<date>2026-05-31</date>
+<rule_name>Malware detected</rule_name>
+</rule>
+<rule id="10021">
+<title>Process injection</title>
+<level>1</level>
+<if>process=* path=* category=endpoint </if>
+<description># Suspicious process injection</description>
+<date>2026-05-31</date>
+<rule_name>Process injection</rule_name>
+</rule>
+<rule id="10022">
+<title>Failed auth</title>
+<level>1</level>
+<if>username=* method=* status=failed category=authentication </if>
+<description># Failed authentication attempt</description>
+<date>2026-05-31</date>
+<rule_name>Failed auth</rule_name>
+</rule>
+<rule id="10023">
+<title>Port scan</title>
+<level>1</level>
+<if>source=* destination=* port=* category=firewall </if>
+<description># Port scanning activity</description>
+<date>2026-05-31</date>
+<rule_name>Port scan</rule_name>
+</rule>
+<rule id="10024">
+<title>VPN breach</title>
+<level>1</level>
+<if>client=* server=* status=failed category=vpn </if>
+<description># VPN connection breach</description>
+<date>2026-05-31</date>
+<rule_name>VPN breach</rule_name>
+</rule>
+<rule id="10025">
+<title>Zero-day attack</title>
+<level>1</level>
+<if>signature=* severity=critical category=ids </if>
+<description># Zero-day attack indicator</description>
+<date>2026-05-31</date>
+<rule_name>Zero-day attack</rule_name>
+</rule>
+<rule id="10026">
+<title>Malicious file</title>
+<level>1</level>
+<if>malware=* hash=* category=iocs </if>
+<description># Malicious file IOC</description>
+<date>2026-05-31</date>
+<rule_name>Malicious file</rule_name>
+</rule>
+<rule id="10027">
+<title>Compliance violation</title>
+<level>2</level>
+<if>control=* status=fail category=compliance </if>
+<description># Compliance control failure</description>
+<date>2026-05-31</date>
+<rule_name>Compliance violation</rule_name>
+</rule>
+<rule id="10028">
+<title>SIEM alert</title>
+<level>3</level>
+<if>event_type=* severity=* category=siem_events </if>
+<description># SIEM event alert</description>
+<date>2026-05-31</date>
+<rule_name>SIEM alert</rule_name>
+</rule>
+<rule id="10029">
+<title>Threat intel</title>
+<level>1</level>
+<if>indicator=* source=* category=threat_intel </if>
+<description># Threat intelligence indicator</description>
+<date>2026-05-31</date>
+<rule_name>Threat intel</rule_name>
+</rule>
+<rule id="10030">
+<title>Suspicious user</title>
+<level>2</level>
+<if>user=* action=* category=user_activity </if>
+<description># Suspicious user activity</description>
+<date>2026-05-31</date>
+<rule_name>Suspicious user</rule_name>
+</rule>
+<rule id="10031">
+<title>Process spike</title>
+<level>2</level>
+<if>pid=* name=* category=process_monitoring </if>
+<description># Process monitoring alert</description>
+<date>2026-05-31</date>
+<rule_name>Process spike</rule_name>
+</rule>
+<rule id="10032">
+<title>Remote login</title>
+<level>2</level>
+<if>type=* status=* category=logon </if>
+<description># Remote login event</description>
+<date>2026-05-31</date>
+<rule_name>Remote login</rule_name>
+</rule>
+<rule id="10033">
+<title>File access</title>
+<level>2</level>
+<if>action=* path=* category=file_ops </if>
+<description># File access event</description>
+<date>2026-05-31</date>
+<rule_name>File access</rule_name>
+</rule>
+<rule id="10034">
+<title>Registry change</title>
+<level>2</level>
+<if>action=* key=* category=registry_ops </if>
+<description># Registry modification</description>
+<date>2026-05-31</date>
+<rule_name>Registry change</rule_name>
+</rule>
+<rule id="10035">
+<title>Scheduled task</title>
+<level>2</level>
+<if>task_name=* status=* category=scheduled_tasks </if>
+<description># Scheduled task event</description>
+<date>2026-05-31</date>
+<rule_name>Scheduled task</rule_name>
+</rule>
+<rule id="10036">
+<title>Service start</title>
+<level>2</level>
+<if>service=* status=* category=service_monitoring </if>
+<description># Service change event</description>
+<date>2026-05-31</date>
+<rule_name>Service start</rule_name>
+</rule>
