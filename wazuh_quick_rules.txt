@@ -1,0 +1,40 @@
+<rule id="10001">
+<title>Auth failure</title>
+<level>1</level>
+<if>username=* authentication category=syslog </if>
+<description># Auth failure detection</description>
+<date>2026-05-31</date>
+<rule_name>Auth failure</rule_name>
+</rule>
+<rule id="10001">
+<title>File mod</title>
+<level>1</level>
+<if>path=* mod category=file_integrity </if>
+<description># File modification</description>
+<date>2026-05-31</date>
+<rule_name>File mod</rule_name>
+</rule>
+<rule id="10001">
+<title>Brute force</title>
+<level>1</level>
+<if>username=* failed password category=syslog </if>
+<description># Brute force detection</description>
+<date>2026-05-31</date>
+<rule_name>Brute force</rule_name>
+</rule>
+<rule id="10001">
+<title>Root squid</title>
+<level>1</level>
+<if>username=* root category=malware </if>
+<description># Root Squid detection</description>
+<date>2026-05-31</date>
+<rule_name>Root squid</rule_name>
+</rule>
+<rule id="10001">
+<title>Priv escalate</title>
+<level>2</level>
+<if>user=* privileged category=command/windows </if>
+<description># Privilege escalation</description>
+<date>2026-05-31</date>
+<rule_name>Priv escalate</rule_name>
+</rule>
