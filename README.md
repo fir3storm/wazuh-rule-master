@@ -30,19 +30,34 @@ pip install pygments
 
 ## Quick Start
 
-### Generate Quick Rules
+### Generate All 28 Categories
 
 ```bash
-# Generate all quick rule templates
+# Generate all quick rules for all categories
 python wazuh_rule_generator.py -q -o quick_rules.txt
-```
 
-**Generated rules include:**
-- Authentication failure (level 1)
-- File integrity modification (level 1)
-- Brute force detection (level 1)
-- Root Squid detection (level 1)
-- Privilege escalation (level 2)
+# Or use the extended rules file
+python wazuh_rule_generator.py -q -o quick_rules.txt
+
+# For 28 categories
+python wazuh_rule_generator.py -q -o all_rules_28.txt
+```
+- Network intrusion (level 1)
+- SQL injection (level 1)
+- Phishing attempt (level 1)
+- DNS tunneling (level 1)
+- Proxy abuse (level 1)
+- Malware detected (level 1)
+- Process injection (level 1)
+- Failed auth (level 1)
+- Port scan (level 1)
+- VPN breach (level 1)
+- Zero-day attack (level 1)
+- Malicious file (level 1)
+- Compliance violation (level 2)
+- SIEM alert (level 3)
+- Threat intel (level 1)
+- Suspicious user (level 2)
 
 ### Generate from Patterns
 
@@ -159,32 +174,38 @@ for config in configs:
 generator.generate_batch(configs, 'batch_rules.txt')
 ```
 
-## Wazuh Fields Supported
+## Full Category List (28 categories)
 
-The generator supports these field types:
-
-| Field | Wazuh Field Type | Category |
-|-------|------------------------------------|----------|
-| hostname | Hostname | syslog, audit, bash, windows, linux |
-| username | Username | syslog, audit |
-| remote_addr | Remote Address | syslog |
-| path | Path/Hash | file_integrity, registry |
-| user | User | file_integrity, windows, linux |
-| category | Category | All |
-
-### Field Definitions by Category
-
-**Syslog Rules:**
-- hostname, username, remote_addr, path, user, category
-
-**File Integrity:**
-- path, user, category=file_integrity
-
-**Windows Commands:**
-- hostname, user, category=command/windows
-
-**Bash Commands:**
-- hostname, user, category=command/bash
+| # | Category | Fields |
+|---|---|---|
+| 1 | syslog | hostname, username, remote_addr, path, user, category |
+| 2 | audit | user, user_sid, target_sid, path, category |
+| 3 | file_integrity | path, user |
+| 4 | command/windows | hostname, user |
+| 5 | command/bash | hostname, user |
+| 6 | registry | path, user |
+| 7 | network | remote_addr, destination, protocol, category |
+| 8 | database | connection, user, db_name, operation |
+| 9 | email | sender, receiver, subject, status |
+| 10 | dns | query, response, status |
+| 11 | proxy | url, method, status, user |
+| 12 | antivirus | file, status, detection |
+| 13 | endpoint | process, path, command, user |
+| 14 | authentication | username, method, status, timestamp |
+| 15 | firewall | source, destination, port, action |
+| 16 | vpn | client, server, protocol, status |
+| 17 | ids | signature, severity, category, source |
+| 18 | iocs | malware, hash, behavior, threat |
+| 19 | compliance | control, standard, status, result |
+| 20 | siem_events | event_type, severity, category, source |
+| 21 | threat_intel | indicator, source, confidence, action |
+| 22 | user_activity | user, action, resource, time |
+| 23 | process_monitoring | pid, name, parent, user |
+| 24 | logon | type, status, method, location |
+| 25 | file_ops | action, path, user, time |
+| 26 | registry_ops | action, key, user, time |
+| 27 | scheduled_tasks | task_name, status, schedule, user |
+| 28 | service_monitoring | service, status, start_time, user |
 
 ## Default Rule Template
 
